@@ -1,3 +1,4 @@
+
 export type PostType = {
     id: number
     title: string
@@ -6,14 +7,15 @@ export type PostType = {
 
 type PropsType = {
     post: PostType
+    postNumber: number
 }
 
-export const PostItem = ({post}: PropsType) => {
+export const PostItem = ({post, postNumber}: PropsType) => {
 
     return (
         <div className={"post"} key={post.id}>
             <div className={"post__content"}>
-                <strong>{post.id}. {post.title + ' ' + post.id}</strong>
+                <strong>{postNumber}. {post.title}</strong>
                 <div>
                     {post.postText}
                 </div>

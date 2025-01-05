@@ -10,9 +10,9 @@ export const PostList = ({posts, title}: PropsType) => {
         <div>
             <h1 style={{textAlign: "center"}}>{title}</h1>
             {
-                posts.map((post: PostType) => {
+                posts.map((post: PostType, index) => {
                     return (
-                        <PostItem post={post}/>
+                        <PostItem postNumber={index + 1} post={post}/>
                     )
                 })
             }
