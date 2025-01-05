@@ -20,34 +20,36 @@ function App() {
         {id: 7, title: 'Javascript', postText: 'Description'},
     ])
 
-    const [postTitle, setPostTitle] = useState('')
-    const [postDescription, setPostDescription] = useState('')
+    const [post, setPost] = useState<{ title: string, postText: string }>({title: '', postText: ''})
+    // const [postTitle, setPostTitle] = useState('')
+    // const [postDescription, setPostDescription] = useState('')
 
     const addNewPost = (e: any) => {
         e.preventDefault()
-        const newPost: PostType = {id: Date.now(), title: postTitle, postText: postDescription}
-        setPosts([...posts, newPost])
-        setPostTitle('')
-        setPostDescription('')
+        // const newPost: PostType = {id: Date.now(), title: post.title, postText: post.postText}
+        setPosts([...posts, {...post, id: Date.now()}])
+        setPost({title: '', postText: ''})
+        // setPostTitle('')
+        // setPostDescription('')
     }
-
     const onChangePostTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPostTitle(e.currentTarget.value)
+        setPost({...post, title: e.currentTarget.value})
+        // setPostTitle(e.currentTarget.value)
     }
-
+    //
     const onChangePostDescriptionHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPostDescription(e.currentTarget.value)
-
+        setPost({...post, postText: e.currentTarget.value})
+        // setPostDescription(e.currentTarget.value)
     }
 
     return (
         <div className={"App"}>
             <form>
                 {/* //TODO: Управляемый компонент*/}
-                <CustomInput className={classes.input} value={postTitle} type={'text'}
+                <CustomInput className={classes.input} value={post.title} type={'text'}
                              onChange={onChangePostTitleHandler}
                              placeholder={'Название поста'}/>
-                <CustomInput className={classes.input} value={postDescription}
+                <CustomInput className={classes.input} value={post.postText}
                              onChange={onChangePostDescriptionHandler}
                              type={'text'}
                              placeholder={'Описание поста'}/>
