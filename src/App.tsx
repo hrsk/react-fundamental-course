@@ -5,6 +5,8 @@ import {PostList} from './components/PostList.tsx';
 import {PostForm} from "./components/PostForm.tsx";
 import {OptionValue, SortKeyType} from "./components/UI/select/CustomSelect.tsx";
 import {PostFilter} from "./components/PostFilter.tsx";
+import {CustomModal} from "./components/UI/modal/CustomModal.tsx";
+import {CustomButton} from "./components/UI/button/CustomButton.tsx";
 
 export type FilterType = {
     sortValue: SortKeyType,
@@ -29,6 +31,9 @@ function App() {
     const [filter, setFilter] = useState<FilterType>({
         sortValue: 'title', queryValue: ''
     })
+
+    const [modalWindow, setModalWindow] = useState<boolean>(false)
+
     const optionValues: OptionValue[] = [
         {optionValue: 'title', optionTitle: 'Sort by title'},
         {optionValue: 'postText', optionTitle: 'Sort by text'},
@@ -68,6 +73,7 @@ function App() {
 
     const addPost = (newPost: PostType) => {
         setPosts([...posts, newPost])
+        setModalWindow(false)
     }
 
     const removePost = (postId: string) => {
@@ -79,9 +85,17 @@ function App() {
     //     // setPosts([...posts].sort((a, b) => a[sortKey].localeCompare(b[sortKey])))
     // }
 
+    const activateModalWindow = () => {
+        setModalWindow(true)
+    }
+
     return (
-        <div className={"App"}>
-            <PostForm addPost={addPost}/>
+        <div style={{marginTop: '25px'}} className={"App"}>
+            {/*<PostForm addPost={addPost}/>*/}
+            <CustomButton onClick={activateModalWindow}>{'Create post'}</CustomButton>
+            <CustomModal visible={modalWindow} setVisible={setModalWindow}>
+                <PostForm addPost={addPost}/>
+            </CustomModal>
             <div style={{padding: '15px 0'}}/>
             <PostFilter optionValues={optionValues} filter={filter} setFilter={setFilter}/>
             {/*<CustomInput value={searchQuery}*/}

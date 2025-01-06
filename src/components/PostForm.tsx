@@ -36,7 +36,7 @@ export const PostForm = ({addPost}: PropsType) => {
                          onChange={onChangePostDescriptionHandler}
                          type={'text'}
                          placeholder={'Описание поста'}/>
-            <CustomButton onClick={addPostHandler}>Создать пост</CustomButton>
+            <CustomButton onClick={addPostHandler}>Create</CustomButton>
         </form>
     );
 };
