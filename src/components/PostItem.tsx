@@ -1,7 +1,7 @@
 import {CustomButton} from "./UI/button/CustomButton.tsx";
 
 export type PostType = {
-    id: number
+    id: string
     title: string
     postText: string
 }

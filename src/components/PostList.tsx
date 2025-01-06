@@ -3,7 +3,7 @@ import {PostItem, PostType} from "./PostItem.tsx";
 type PropsType = {
     posts: PostType[]
     title: string
-    removePost: (postId: number) => void
+    removePost: (postId: string) => void
 }
 
 export const PostList = ({posts, title, removePost}: PropsType) => {
