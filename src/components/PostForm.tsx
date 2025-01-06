@@ -12,9 +12,9 @@ export const PostForm = ({addPost}: PropsType) => {
     const [post, setPost] = useState<{ title: string, postText: string }>({title: '', postText: ''})
 
 
-    const addPostHandler = (e: any) => {
+    const addPostHandler = (e: ChangeEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const newPost: PostType = {id: Date.now(), ...post}
+        const newPost: PostType = {id: Date.now().toString(), ...post}
         addPost(newPost)
         setPost({title: '', postText: ''})
     }
