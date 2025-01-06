@@ -1,3 +1,4 @@
+import {CustomButton} from "./UI/button/CustomButton.tsx";
 
 export type PostType = {
     id: number
@@ -8,9 +9,10 @@ export type PostType = {
 type PropsType = {
     post: PostType
     postNumber: number
+    removePostHandler: () => void
 }
 
-export const PostItem = ({post, postNumber}: PropsType) => {
+export const PostItem = ({post, postNumber, removePostHandler}: PropsType) => {
 
     return (
         <div className={"post"} key={post.id}>
@@ -21,9 +23,9 @@ export const PostItem = ({post, postNumber}: PropsType) => {
                 </div>
             </div>
             <div className={"post__bttns"}>
-                <button>
+                <CustomButton onClick={removePostHandler}>
                     Удалить
-                </button>
+                </CustomButton>
             </div>
         </div>
     );
