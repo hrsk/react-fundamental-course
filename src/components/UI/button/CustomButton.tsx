@@ -9,7 +9,7 @@ type PropsType = {
 
 export const CustomButton = ({children, className, ...props}: PropsType) => {
     return (
-        <button {...props} className={className ? className : classes.button}>
+        <button {...props} className={className ? [className, classes.button].join(' ') : classes.button}>
             {children}
         </button>
     );

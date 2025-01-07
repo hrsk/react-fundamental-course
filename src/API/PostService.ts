@@ -9,6 +9,9 @@ const instance = axios.create({
 export const PostService = {
     async getPosts() {
         return await instance.get<ResponsePostType[]>('posts')
+    },
+    async getPage(pageLimit: number, pageNumber: number) {
+        return await instance.get<ResponsePostType[]>(`posts?_limit=${pageLimit}&_page=${pageNumber}`)
     }
 
 }

@@ -20,14 +20,15 @@ export type FilterType = {
 function App() {
 
     const [posts, setPosts] = useState<ResponsePostType[]>([])
-
     const [filter, setFilter] = useState<FilterType>({sortValue: 'title', queryValue: ''})
-
+    const [postsTotalCount, setPostsTotalCount] = useState(0)
     const [modalWindow, setModalWindow] = useState<boolean>(false)
+
     const [fetchPosts, isLoading, isError] = useFetching(
         async () => {
             const posts = await PostService.getPosts()
             setPosts(posts.data)
+            setPostsTotalCount(posts.data.length)
         }
     )
 
@@ -39,7 +40,6 @@ function App() {
     useEffect(() => {
         fetchPosts()
     }, [])
-
 
     const sortedAndSearchedPosts = usePosts(posts, filter.sortValue, filter.queryValue)
 
@@ -56,6 +56,15 @@ function App() {
         setModalWindow(true)
     }
 
+    const pageLimit = 10
+
+    const selectPage = (pageNumber: number) => {
+        return async () => {
+            const posts = await PostService.getPage(pageLimit, pageNumber)
+            setPosts(posts.data)
+        }
+    }
+
     return (
         <div style={{marginTop: '25px'}} className={"App"}>
             <CustomButton onClick={activateModalWindow}>{'Create post'}</CustomButton>
@@ -67,7 +76,7 @@ function App() {
                 isLoading
                     ? <Loader/>
                     : <PostList posts={sortedAndSearchedPosts} removePost={removePost}
-                                title={'Список постов про Javascript'}/>
+                                title={'Список постов про Javascript'} postsCount={postsTotalCount} selectPage={selectPage}/>
             }
         </div>
     )
