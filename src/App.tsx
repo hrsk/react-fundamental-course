@@ -1,12 +1,13 @@
 import './styles/App.css'
 import {PostType} from "./components/PostItem.tsx";
-import {useMemo, useState} from "react";
+import {useState} from "react";
 import {PostList} from './components/PostList.tsx';
 import {PostForm} from "./components/PostForm.tsx";
 import {OptionValue, SortKeyType} from "./components/UI/select/CustomSelect.tsx";
 import {PostFilter} from "./components/PostFilter.tsx";
 import {CustomModal} from "./components/UI/modal/CustomModal.tsx";
 import {CustomButton} from "./components/UI/button/CustomButton.tsx";
+import {usePosts} from "./hooks/usePosts.ts";
 
 export type FilterType = {
     sortValue: SortKeyType,
@@ -39,6 +40,7 @@ function App() {
         {optionValue: 'postText', optionTitle: 'Sort by text'},
     ]
 
+    const sortedAndSearchedPosts = usePosts(posts, filter.sortValue, filter.queryValue)
     // const sortedPosts = useMemo(() => {
     //     console.log('get sorted post')
     //     if (selectedSort) {
@@ -47,13 +49,13 @@ function App() {
     //     return posts
     // }, [selectedSort, posts])
 
-    const sortedPosts = useMemo(() => {
-        console.log('get sorted post')
-        if (filter.sortValue) {
-            return [...posts].sort((a, b) => a[filter.sortValue].localeCompare(b[filter.sortValue]))
-        }
-        return posts
-    }, [filter, posts])
+    /*    const sortedPosts = useMemo(() => {
+            console.log('get sorted post')
+            if (filter.sortValue) {
+                return [...posts].sort((a, b) => a[filter.sortValue].localeCompare(b[filter.sortValue]))
+            }
+            return posts
+        }, [filter, posts])*/
 
     // const sortedAndSearchedPosts = useMemo(() => {
     //     if (selectedSort === 'title') {
@@ -63,13 +65,13 @@ function App() {
     //     }
     // }, [selectedSort, searchQuery, sortedPosts])
 
-    const sortedAndSearchedPosts = useMemo(() => {
-        if (filter.sortValue === 'title') {
-            return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.queryValue.toLowerCase()))
-        } else {
-            return sortedPosts.filter(post => post.postText.toLowerCase().includes(filter.queryValue.toLowerCase()))
-        }
-    }, [filter, sortedPosts])
+    /*    const sortedAndSearchedPosts = useMemo(() => {
+            if (filter.sortValue === 'title') {
+                return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.queryValue.toLowerCase()))
+            } else {
+                return sortedPosts.filter(post => post.postText.toLowerCase().includes(filter.queryValue.toLowerCase()))
+            }
+        }, [filter, sortedPosts])*/
 
     const addPost = (newPost: PostType) => {
         setPosts([...posts, newPost])
