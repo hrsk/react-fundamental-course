@@ -2,28 +2,28 @@ import {CustomInput} from "./UI/input/CustomInput.tsx";
 import classes from "./UI/input/CustomInput.module.css";
 import {CustomButton} from "./UI/button/CustomButton.tsx";
 import {ChangeEvent, useState} from "react";
-import {PostType} from "./PostItem.tsx";
+import {ResponsePostType} from "./PostItem.tsx";
 
 type PropsType = {
-    addPost: (post: PostType) => void
+    addPost: (post: ResponsePostType) => void
 }
 export const PostForm = ({addPost}: PropsType) => {
 
-    const [post, setPost] = useState<{ title: string, postText: string }>({title: '', postText: ''})
+    const [post, setPost] = useState<{ title: string, body: string }>({title: '', body: ''})
 
 
     const addPostHandler = (e: ChangeEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const newPost: PostType = {id: Date.now().toString(), ...post}
+        const newPost: ResponsePostType = {id: Date.now(), userId: Date.now(), ...post}
         addPost(newPost)
-        setPost({title: '', postText: ''})
+        setPost({title: '', body: ''})
     }
     const onChangePostTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setPost({...post, title: e.currentTarget.value})
     }
 
     const onChangePostDescriptionHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPost({...post, postText: e.currentTarget.value})
+        setPost({...post, body: e.currentTarget.value})
     }
 
     return (
@@ -32,7 +32,7 @@ export const PostForm = ({addPost}: PropsType) => {
             <CustomInput className={classes.input} value={post.title} type={'text'}
                          onChange={onChangePostTitleHandler}
                          placeholder={'Название поста'}/>
-            <CustomInput className={classes.input} value={post.postText}
+            <CustomInput className={classes.input} value={post.body}
                          onChange={onChangePostDescriptionHandler}
                          type={'text'}
                          placeholder={'Описание поста'}/>

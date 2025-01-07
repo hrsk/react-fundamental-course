@@ -1,9 +1,9 @@
-import {PostItem, PostType} from "./PostItem.tsx";
+import {PostItem, ResponsePostType} from "./PostItem.tsx";
 
 type PropsType = {
-    posts: PostType[]
+    posts: ResponsePostType[]
     title: string
-    removePost: (postId: string) => void
+    removePost: (postId: number) => void
 }
 
 export const PostList = ({posts, title, removePost}: PropsType) => {
@@ -16,7 +16,7 @@ export const PostList = ({posts, title, removePost}: PropsType) => {
         <div>
             <h1 style={{textAlign: "center"}}>{title}</h1>
             {
-                posts.map((post: PostType, index) => {
+                posts.map((post, index) => {
 
                     const removePostHandler = () => {
                         removePost(post.id)

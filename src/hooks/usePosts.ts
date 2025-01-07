@@ -1,11 +1,11 @@
 import {useMemo} from "react";
-import {PostType} from "../components/PostItem.tsx";
+import {ResponsePostType} from "../components/PostItem.tsx";
 import {SortKeyType} from "../components/UI/select/CustomSelect.tsx";
 
-export const useSortedPosts = (posts: PostType[], sortValue: SortKeyType) => {
+export const useSortedPosts = (posts: ResponsePostType[], sortValue: SortKeyType) => {
     const sortedPosts = useMemo(() => {
         if (sortValue) {
-            return [...posts].sort((a, b) => a[sortValue].localeCompare(b[sortValue]))
+            return [...posts].sort((a, b) => a[sortValue].toString().localeCompare(b[sortValue].toString()))
         }
         return posts
     }, [sortValue, posts])
@@ -13,7 +13,7 @@ export const useSortedPosts = (posts: PostType[], sortValue: SortKeyType) => {
     return sortedPosts
 }
 
-export const usePosts = (posts: PostType[], sortValue: SortKeyType, queryValue: string) => {
+export const usePosts = (posts: ResponsePostType[], sortValue: SortKeyType, queryValue: string) => {
 
     const sortedPosts = useSortedPosts(posts, sortValue)
 
@@ -21,7 +21,7 @@ export const usePosts = (posts: PostType[], sortValue: SortKeyType, queryValue: 
         if (sortValue === 'title') {
             return sortedPosts.filter(post => post.title.toLowerCase().includes(queryValue.toLowerCase()))
         } else {
-            return sortedPosts.filter(post => post.postText.toLowerCase().includes(queryValue.toLowerCase()))
+            return sortedPosts.filter(post => post.body.toLowerCase().includes(queryValue.toLowerCase()))
         }
     }, [queryValue, sortValue, sortedPosts])
 

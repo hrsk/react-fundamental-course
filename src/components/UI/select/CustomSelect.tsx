@@ -1,16 +1,16 @@
 import {ChangeEvent} from "react";
-import {PostType} from "../../PostItem.tsx";
+import {ResponsePostType} from "../../PostItem.tsx";
 
 export type OptionValue = {
     optionValue: string
     optionTitle: string
 }
 
-export type SortKeyType = keyof PostType
+export type SortKeyType = keyof ResponsePostType
 
 type PropsType = {
     // selectedSort: keyof PostType | ''
-    selectedSort: keyof PostType
+    selectedSort: keyof ResponsePostType
     defaultValue: string
     onChange: (sortKey: SortKeyType) => void
     options: OptionValue[]
