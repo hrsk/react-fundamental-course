@@ -9,6 +9,7 @@ import {CustomModal} from "./components/UI/modal/CustomModal.tsx";
 import {CustomButton} from "./components/UI/button/CustomButton.tsx";
 import {usePosts} from "./hooks/usePosts.ts";
 import {PostService} from "./API/PostService.ts";
+import {Loader} from "./components/UI/loader/Loader.tsx";
 
 export type FilterType = {
     sortValue: SortKeyType,
@@ -22,6 +23,7 @@ function App() {
     const [filter, setFilter] = useState<FilterType>({sortValue: 'title', queryValue: ''})
 
     const [modalWindow, setModalWindow] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const optionValues: OptionValue[] = [
         {optionValue: 'title', optionTitle: 'Sort by title'},
@@ -34,8 +36,10 @@ function App() {
 
 
     const fetchPosts = async () => {
+        setIsLoading(true)
         const posts = await PostService.getPosts()
         setPosts(posts.data)
+        setIsLoading(false)
     }
 
     const sortedAndSearchedPosts = usePosts(posts, filter.sortValue, filter.queryValue)
@@ -60,7 +64,12 @@ function App() {
                 <PostForm addPost={addPost}/>
             </CustomModal>
             <PostFilter optionValues={optionValues} filter={filter} setFilter={setFilter}/>
-            <PostList posts={sortedAndSearchedPosts} removePost={removePost} title={'Список постов про Javascript'}/>
+            {
+                isLoading
+                    ? <Loader/>
+                    : <PostList posts={sortedAndSearchedPosts} removePost={removePost}
+                                title={'Список постов про Javascript'}/>
+            }
         </div>
     )
 }
