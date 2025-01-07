@@ -7,12 +7,6 @@ export type ResponsePostType = {
     body: string
 }
 
-// export type PostType = {
-//     id: string
-//     title: string
-//     postText: string
-// }
-
 type PropsType = {
     post: ResponsePostType
     postNumber: number

@@ -9,7 +9,6 @@ export type OptionValue = {
 export type SortKeyType = keyof ResponsePostType
 
 type PropsType = {
-    // selectedSort: keyof PostType | ''
     selectedSort: keyof ResponsePostType
     defaultValue: string
     onChange: (sortKey: SortKeyType) => void
